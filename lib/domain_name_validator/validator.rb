@@ -4,37 +4,36 @@
 
 class DomainNameValidator
 
+  ROOT_ZONE_URL = 'http://www.internic.net/domain/root.zone'
+  TLD_FILE      = File.expand_path('../../../data/TLD.txt', __FILE__)
+  TLD_MAP       = File.readlines(TLD_FILE).map{ |line| line.chomp }
   MAX_DOMAIN_LENGTH = 253
   MAX_LABEL_LENGTH = 63
   MAX_LEVELS = 127
-  MAX_TLD_LENGTH = 3       # Except for "aero", "arpa", "info" and "museum"
   MIN_LEVELS = 2
-  MIN_TLD_LENGTH = 2
 
   ERRS = {
     :bogus_tld =>
-       'Malformed TLD: Could not possibly match any valid TLD',
-    :illegal_chars =>
-       'Domain label contains an illegal character',
-    :illegal_start =>
-       'No domain name may start with a period',
-    :label_dash_begin =>
-       'No domain label may begin with a dash',
-    :label_dash_end =>
-       'No domain label may end with a dash',
-    :max_domain_size =>
-       'Maximum domain length of 253 exceeded',
-    :max_label_size =>
-       'Maximum domain label length of 63 exceeded',
-    :max_level_size =>
-       'Maximum domain level limit of 127 exceeded',
-    :min_level_size =>
-       'Minimum domain level limit of 2 not achieved',
-    :top_numerical =>
-       'The top-level domain (TLD) cannot be numerical',
-    :zero_size =>
-       'Zero-length domain name'
-    }
+    'Malformed TLD: Could not possibly match any valid TLD',
+      :illegal_chars =>
+    'Domain label contains an illegal character',
+      :illegal_start =>
+    'No domain name may start with a period',
+      :label_dash_begin =>
+    'No domain label may begin with a dash',
+      :label_dash_end =>
+    'No domain label may end with a dash',
+      :max_domain_size =>
+    'Maximum domain length of 253 exceeded',
+      :max_label_size =>
+    'Maximum domain label length of 63 exceeded',
+      :max_level_size =>
+    'Maximum domain level limit of 127 exceeded',
+      :min_level_size =>
+    'Minimum domain level limit of 2 not achieved',
+      :zero_size =>
+    'Zero-length domain name'
+  }
 
   # Validates the proper formatting of a normalized domain name, i.e. - a
   # domain that is represented in ASCII. Thus, international domain names are
@@ -69,27 +68,10 @@ class DomainNameValidator
         errs << ERRS[:label_dash_end] if p[-1] == '-'
         errs << ERRS[:illegal_chars] unless p.match(/^[a-z0-9\-\_]+$/)
       end
-      errs << ERRS[:top_numerical] if parts.last.match(/^[0-9]+$/)
-      if parts.last.size < MIN_TLD_LENGTH || parts.last.size > MAX_TLD_LENGTH
-        unless parts.last == 'arpa' ||
-               parts.last == 'aero' ||
-               parts.last == 'asia' ||
-               parts.last == 'coop' ||
-               parts.last == 'info' ||
-               parts.last == 'jobs' ||
-               parts.last == 'mobi' ||
-               parts.last == 'museum' ||
-               parts.last == 'name' ||
-               parts.last == 'post' ||
-               parts.last == 'travel' ||
-               parts.last.match(/^xn--/)
-          errs << ERRS[:bogus_tld]   
-        end
-      end
+      errs << ERRS[:bogus_tld] unless TLD_MAP.include?(parts.last)
       errs << ERRS[:illegal_start] if parts.first[0] == '.'
     end
 
     errs.size == 0   # TRUE if valid, FALSE otherwise
   end
-
 end

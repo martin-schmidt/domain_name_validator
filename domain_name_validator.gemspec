@@ -1,21 +1,25 @@
 # -*- encoding: utf-8 -*-
-$:.push File.expand_path("../lib", __FILE__)
-require "domain_name_validator/version"
+$:.push File.expand_path('../lib', __FILE__)
+require 'domain_name_validator/version'
 
 Gem::Specification.new do |gem|
-  gem.name        = "domain_name_validator"
+  gem.name        = 'domain_name_validator'
   gem.version     = DomainNameValidator::VERSION
   gem.platform    = Gem::Platform::RUBY
-  gem.authors     = ["David Keener"]
-  gem.email       = ["dkeener@keenertech.com"]
-  gem.homepage    = "http://www.keenertech.com"
+  gem.authors     = ['David Keener']
+  gem.email       = ['dkeener@keenertech.com']
+  gem.homepage    = 'http://www.keenertech.com'
   gem.summary     = %q{Domain Name Validator}
   gem.description = %q{Checks the validity of domain names.}
   gem.license     = 'MIT'
- 
-  gem.add_development_dependency "rspec"
 
-  gem.rubyforge_project = "domain_name_validator"
+  gem.extensions = ['Rakefile']
+
+  gem.add_development_dependency 'rspec'
+  gem.add_development_dependency 'zonefile'
+  gem.add_development_dependency 'simplecov'
+
+  gem.rubyforge_project = 'domain_name_validator'
 
   gem.files         = `git ls-files`.split("\n")
   gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
@@ -24,5 +28,5 @@ Gem::Specification.new do |gem|
   #gem.rdoc_options = ["--charset=UTF-8"]
   #gem.extra_rdoc_files = %w[README.rdoc LICENSE Changelog.rdoc]
 
-  gem.require_paths = ["lib"]
+  gem.require_paths = ['lib']
 end
