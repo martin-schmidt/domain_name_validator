@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     domain_name_validator (0.5)
+      zonefile
 
 GEM
   remote: http://rubygems.org/
@@ -38,7 +39,6 @@ DEPENDENCIES
   rake
   rspec
   simplecov
-  zonefile
 
 BUNDLED WITH
    1.10.6
