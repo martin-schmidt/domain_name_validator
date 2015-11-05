@@ -13,7 +13,6 @@ Gem::Specification.new do |gem|
   gem.description   = %q{Checks the validity of domain names.}
   gem.license       = 'MIT'
   gem.bindir        = 'exe'
-  gem.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   gem.require_paths = ['lib']
 
   gem.extensions = ['Rakefile']
@@ -27,7 +26,7 @@ Gem::Specification.new do |gem|
 
   gem.files         = `git ls-files`.split("\n")
   gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  gem.executables   = gem.files.grep(%r{^exe/}) { |f| File.basename(f) }
 
   #gem.rdoc_options = ["--charset=UTF-8"]
   #gem.extra_rdoc_files = %w[README.rdoc LICENSE Changelog.rdoc]
