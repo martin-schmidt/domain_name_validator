@@ -17,8 +17,8 @@ Gem::Specification.new do |gem|
 
   gem.extensions = ['Rakefile']
 
+  gem.add_dependency 'zonefile'
   gem.add_development_dependency 'rspec'
-  gem.add_development_dependency 'zonefile'
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'simplecov'
 
