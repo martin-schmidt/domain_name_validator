@@ -21,7 +21,7 @@ namespace :zones do
     puts "# Downloading zones from #{ROOT_ZONE_URL}"
     uri = URI(ROOT_ZONE_URL)
     Net::HTTP.start(uri.host, uri.port) do |http|
-      request = Net::HTTP::Get.new uri
+      request = Net::HTTP::Get.new uri.to_s
       http.request request do |response|
         file_size = response['content-length'].to_i
         amount_downloaded = 0
