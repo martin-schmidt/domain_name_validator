@@ -1,4 +1,4 @@
-$:.unshift(File.expand_path("lib", __FILE__))
+$:.unshift(File.expand_path("../lib", __FILE__))
 require 'domain_name_validator/update_zones'
 
 task default: :prepare

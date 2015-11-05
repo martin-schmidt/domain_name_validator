@@ -5,7 +5,7 @@ require 'uri'
 
 class DomainNameValidator
 
-  def self.update
+  def self.update_zones
     uri = URI(ROOT_ZONE_URL)
     dnv = DomainNameValidator.new
     dnv.download_zone_file(uri)
