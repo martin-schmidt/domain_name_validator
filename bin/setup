@@ -1,0 +1,9 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+# Bundle
+bundle install
+
+# Update data
+rake zones:update
