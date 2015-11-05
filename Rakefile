@@ -5,6 +5,8 @@ require 'zonefile'
 require 'net/http'
 require 'uri'
 
+task default: :prepare
+
 task :prepare do
   Rake::Task['zones:update'].invoke
 end
