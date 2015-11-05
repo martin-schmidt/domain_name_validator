@@ -36,7 +36,8 @@ class DomainNameValidator
         errs << ERRS[:label_dash_end] if p[-1] == '-'
         errs << ERRS[:illegal_chars] unless p.match(/^[a-z0-9\-\_]+$/)
       end
-      errs << ERRS[:bogus_tld] unless TLD_MAP.include?(parts.last)
+      errs << ERRS[:bogus_tld] unless File.readlines(TLD_FILE).map{
+        |line| line.chomp }.include?(parts.last)
       errs << ERRS[:illegal_start] if parts.first[0] == '.'
     end
 
