@@ -13,8 +13,6 @@ Gem::Specification.new do |gem|
   gem.description = %q{Checks the validity of domain names.}
   gem.license     = 'MIT'
 
-  gem.extensions = ['Rakefile']
-
   gem.add_development_dependency 'rspec'
   gem.add_development_dependency 'zonefile'
   gem.add_development_dependency 'rake'
