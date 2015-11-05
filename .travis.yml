@@ -1,2 +1,2 @@
 language: ruby
-script: rake zones:update && bundle exec rspec spec
+script: bundle exec rake zones:update && bundle exec rspec spec
