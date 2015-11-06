@@ -1,7 +1,6 @@
 class DomainNameValidator
-  ROOT_ZONE_URL = 'http://www.internic.net/domain/root.zone'
-  ZONE_FILE     = File.expand_path('../../../data/root.zone', __FILE__)
-  TLD_FILE      = File.expand_path('../../../data/TLD.txt', __FILE__)
+  ROOT_ZONE_URL = 'http://data.iana.org/TLD/tlds-alpha-by-domain.txt'
+  TLD_FILE      = File.expand_path('../../../data/tlds-alpha-by-domain.txt', __FILE__)
   MAX_DOMAIN_LENGTH = 253
   MAX_LABEL_LENGTH = 63
   MAX_LEVELS = 127

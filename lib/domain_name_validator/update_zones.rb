@@ -9,8 +9,6 @@ class DomainNameValidator
     uri = URI(ROOT_ZONE_URL)
     dnv = DomainNameValidator.new
     dnv.download_zone_file(uri)
-    zones = dnv.parse_zone_file
-    dnv.write_tlds(zones)
   end
 
   def download_zone_file(uri)
@@ -22,7 +20,7 @@ class DomainNameValidator
       request = Net::HTTP::Get.new uri.to_s
       http.request request do |response|
         file_size = response['content-length'].to_i
-        open ZONE_FILE, 'w' do |io|
+        open TLD_FILE, 'w' do |io|
           response.read_body do |chunk|
             io.write chunk
             amount_downloaded += chunk.size
@@ -42,25 +40,5 @@ class DomainNameValidator
       print "\b" * 6 + '=' * diff.to_i + "> #{percentage.to_i.to_s.rjust(3, "0")}%"
     end
     return diff
-  end
-
-  def parse_zone_file
-    puts "# Parsing #{ZONE_FILE}"
-    zf = Zonefile.from_file(ZONE_FILE)
-    zones = zf.records[:ns].map { |hash|
-      hash[:name]
-    }.map { |string|
-      string.split('.')[-1]
-    }.uniq
-    puts "- #{zones.length} TLDs found."
-    return zones
-  end
-
-  def write_tlds(zones)
-    puts "# Writng TLDs to #{TLD_FILE}"
-    File.open(TLD_FILE, 'w') do |f|
-      zones.each { |tld| f.puts(tld) }
-    end
-    puts '- done'
   end
 end
